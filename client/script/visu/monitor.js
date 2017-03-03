@@ -31,20 +31,28 @@ function Monitor() {
 
 
     this.data = [
-        {name: 'старт1_темп', peer_id: 'gwu18_2', remote_id: 1, place: 1, mu: "&deg;C"},
-        {name: 'старт2_темп', peer_id: 'gwu18_2', remote_id: 2, place: 1, mu: "&deg;C"},
-        {name: 'столп1_темп', peer_id: 'gwu18_2', remote_id: 3, place: 1, mu: "&deg;C"},
-        {name: 'столп2_темп', peer_id: 'gwu18_2', remote_id: 4, place: 1, mu: "&deg;C"},
-        {name: 'разведение_темп', peer_id: 'gwu18_2', remote_id: 5, place: 1, mu: "&deg;C"},
-        {name: 'старт1_влаж', peer_id: 'gwu22_2', remote_id: 2, place: 2, mu: "%"},
-        {name: 'старт2_влаж', peer_id: 'gwu22_2', remote_id: 4, place: 2, mu: "%"},
-        {name: 'столп1_влаж', peer_id: 'gwu22_2', remote_id: 6, place: 2, mu: "%"},
-        {name: 'столп2_влаж', peer_id: 'gwu22_2', remote_id: 8, place: 2, mu: "%"},
-        {name: 'разведение_влаж', peer_id: 'gwu22_2', remote_id: 10, place: 2, mu: "%"}
+        {name: 'старт1_темп', peer_id: 'модуль 2', remote_id: 1, place: 1, mu: "&deg;C"},
+        {name: 'старт2_темп', peer_id: 'модуль 2', remote_id: 3, place: 1, mu: "&deg;C"},
+        {name: 'столп1_темп', peer_id: 'модуль 2', remote_id: 5, place: 1, mu: "&deg;C"},
+        {name: 'столп2_темп', peer_id: 'модуль 2', remote_id: 7, place: 1, mu: "&deg;C"},
+        {name: 'холодильник_темп', peer_id: 'модуль 2', remote_id: 11, place: 1, mu: "&deg;C"},
+        {name: 'разведение_темп', peer_id: 'модуль 2', remote_id: 9, place: 1, mu: "&deg;C"},
+        {name: 'старт1_влаж', peer_id: 'модуль 2', remote_id: 2, place: 2, mu: "%"},
+        {name: 'старт2_влаж', peer_id: 'модуль 2', remote_id: 4, place: 2, mu: "%"},
+        {name: 'столп1_влаж', peer_id: 'модуль 2', remote_id: 6, place: 2, mu: "%"},
+        {name: 'столп2_влаж', peer_id: 'модуль 2', remote_id: 8, place: 2, mu: "%"},
+        {name: 'разведение_влаж', peer_id: 'модуль 2', remote_id: 10, place: 2, mu: "%"},
+        {name: 'холодильник_влаж', peer_id: 'модуль 2', remote_id: 12, place: 2, mu: "%"},
+        {name: 'морозильник1_темп', peer_id: 'модуль 1', remote_id: 1, place: 3, mu: "&deg;C"},
+        {name: 'морозильник2_темп', peer_id: 'модуль 1', remote_id: 2, place: 3, mu: "&deg;C"},
+        {name: 'морозильник3_темп', peer_id: 'модуль 1', remote_id: 3, place: 3, mu: "&deg;C"},
+        {name: 'морозильник4_темп', peer_id: 'модуль 1', remote_id: 4, place: 3, mu: "&deg;C"},
+        {name: 'морозильник5_темп', peer_id: 'модуль 1', remote_id: 5, place: 3, mu: "&deg;C"},
+        {name: 'морозильник6_темп', peer_id: 'модуль 1', remote_id: 6, place: 3, mu: "&deg;C"}
     ];
     this.peer = [
-        {id: 'gwu22_2', address: '192.168.0.102', port: 49162},
-        {id: 'gwu18_2', address: '192.168.0.102', port: 49161}
+        {id: 'модуль 1', address: '192.168.0.101', port: 49161},
+         {id: 'модуль 2', address: '192.168.0.102', port: 49162}
     ];
     this.sendData = [];//prepared for send data from this.data and this.peer
     this.tmr1 = {tmr: null};
@@ -71,6 +79,7 @@ function Monitor() {
             cla([this.peerE, this.dataE], ["monitor_cont1"]);
             cla(this.peerE, 'monitor_pcont');
             this.makeSendData();
+            console.log(this.sendData.length, this.data.length);
             this.initialized = true;
         } catch (e) {
             alert(e.message);
@@ -119,12 +128,12 @@ function Monitor() {
             alert("monitor: updateCurrPeer: " + e.message);
         }
     };
-      this.getPeerById = function (id) {
+    this.getPeerById = function (id) {
         try {
             for (var i = 0; i < this.peer.length; i++) {
-               if(this.peer[i].id===id){
-                   return this.peer[i];
-               }
+                if (this.peer[i].id === id) {
+                    return this.peer[i];
+                }
             }
             return null;
         } catch (e) {
@@ -237,10 +246,12 @@ function Monitor() {
             for (var i = 0; i < this.data.length; i++) {
                 this.data[i].sent = false;
                 this.data[i].elem = null;
-                this.data[i].peer =this.getPeerById(this.data[i].peer_id);
+                this.data[i].peer = this.getPeerById(this.data[i].peer_id);
             }
-            console.log(this.data);
             cleara(this.sendData);
+            if (this.peer.length <= 0) {
+                return;
+            }
             var pa = [];
             for (var i = 0; i < this.peer.length; i++) {
                 pa.push({item: this.peer[i], done: false});
@@ -249,8 +260,14 @@ function Monitor() {
             for (var i = 0; i < this.data.length; i++) {
                 ia.push({item: this.data[i], done: false});
             }
+            var np = null;
+            var done = null;
             while (1) {
-                var np = null;
+                if (this.sendData.length === this.data.length) {
+                    return;
+                }
+                np = null;
+                //select next peer
                 for (var i = 0; i < pa.length; i++) {
                     if (!pa[i].done) {
                         pa[i].done = true;
@@ -258,27 +275,23 @@ function Monitor() {
                         break;
                     }
                 }
+                //rewind peer array
                 if (np === null && pa.length) {
                     for (var i = 0; i < pa.length; i++) {
                         pa[i].done = false;
                     }
                     pa[0].done = true;
-                    np =pa[0];
+                    np = pa[0];
                 }
-                if (np === null) {
-                    return;
-                }
-                var done = false;
+
+                done = false;
                 for (var i = 0; i < ia.length; i++) {
-                    if (ia[i].item.peer.id === np.item.id && !ia[i].done) {
+                    if (!ia[i].done && ia[i].item.peer.id === np.item.id) {
                         ia[i].done = true;
                         this.sendData.push(ia[i].item);
                         done = true;
                         break;
                     }
-                }
-                if (!done) {
-                    return;
                 }
             }
         } catch (e) {

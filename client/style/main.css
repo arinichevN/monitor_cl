@@ -79,6 +79,11 @@
 }
 .mn_updated{
     border-color: greenyellow;
+    background-color: yellow;
+    opacity: 1;
+}
+.peer_updated{
+    border-color: greenyellow;
     background-color: azure;
 }
 .monitor_cont1{

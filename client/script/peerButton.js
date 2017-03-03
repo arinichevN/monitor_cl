@@ -8,9 +8,13 @@ function PeerButton(descr) {
 
     this.workE.innerHTML = '&empty;';
     this.descrE.innerHTML = descr;
+     this.tmr1 = {tmr: null};
 
     this.updateStr = function () {
 
+    };
+        this.unmark = function () {
+        clr(this.container, 'peer_updated');
     };
     this.update = function (state) {
         switch (state) {
@@ -24,6 +28,11 @@ function PeerButton(descr) {
                 s(this.workE, "src", "client/image/work_un.png");
                 break;
         }
+        cla(this.container, 'peer_updated');
+        var self = this;
+        this.tmr1.tmr = window.setTimeout(function () {
+            self.unmark();
+        }, 300);
     };
     a(this.container, [ this.descrE,this.workE]);
     cla(this.workE, ["peer_work"]);
