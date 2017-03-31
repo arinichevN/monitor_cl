@@ -554,12 +554,14 @@ function cleara(a) {
         a.pop();
     }
 }
+
 function clearTmr(v) {
     if (v.tmr !== null) {
         window.clearTimeout(v.tmr);
         v.tmr = null;
     }
 }
+
 function eqa(a1, a2) {
     for (var i = 0; i < a1.length; i++) {
         if (a1[i] !== a2[i]) {

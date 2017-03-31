@@ -6,6 +6,27 @@ function PageBlocker() {
         cla(this.container, ['page_blocker', 'hdn']);
         a(document.body, this.container);
     };
+    this.prep = function (click, move, slave, kind) {
+        var self = this;
+        if (click) {
+            this.container.onclick = function () {
+                if (self.slave) {
+                    self.slave.catchEdit(null, self.kind, null);
+                }
+                self.disable();
+            };
+        }
+        if (move) {
+            this.container.onmousemove = function () {
+                if (self.slave) {
+                    self.slave.catchEdit(null, self.kind, null);
+                }
+                self.disable();
+            };
+        }
+        this.slave = slave;
+        this.kind = kind;
+    };
     this.enable = function () {
         clr(this.container, 'hdn');
     };
@@ -19,10 +40,11 @@ function PageBlocker() {
             cla(this.container, 'hdn');
         }
     };
+
 }
-if (typeof cursor_blocker === 'undefined') {
-    var cursor_blocker = new PageBlocker();
-    elem.push(cursor_blocker);
+if (typeof page_blocker === 'undefined') {
+    var page_blocker = new PageBlocker();
+    elem.push(page_blocker);
 } else {
-    console.log("warning: you have another cursor_blocker");
+    console.log("warning: you have another page_blocker");
 }

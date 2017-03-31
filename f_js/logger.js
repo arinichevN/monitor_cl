@@ -31,20 +31,23 @@ function Logger() {
 
     };
     this.saveErr = function () {
-        this.log(1, 204);
+        this.log(1, trans.get(204));
     };
     this.err = function (id) {
-        this.log(1, id);
+        this.log(1, trans.get(id));
     };
     this.wrn = function (id) {
-        this.log(2, id);
+        this.log(2, trans.get(id));
     };
     this.ntf = function (id) {
-        this.log(3, id);
+        this.log(3, trans.get(id));
     };
-    this.log = function (id, str_id) {
-        this.data.push([str_id, id]);
-        this.n_cont.innerHTML = trans.get(str_id);
+    this.ntfs = function (str) {
+        this.log(3, str);
+    };
+    this.log = function (id, str) {
+        this.data.push([str, id]);
+        this.n_cont.innerHTML = str;
         this.setStyle(id);
         if (this.timer) {
             window.clearTimeout(this.timer);
@@ -102,14 +105,14 @@ function Logger() {
     this.up = function () {
         if (this.row > 0) {
             this.row--;
-            this.n_cont.innerHTML = trans.get(this.data[this.row][0]);
+            this.n_cont.innerHTML = this.data[this.row][0];
             this.setStyle(this.data[this.row][1]);
         }
     };
     this.down = function () {
         if (this.row < this.data.length - 1) {
             this.row++;
-            this.n_cont.innerHTML = trans.get(this.data[this.row][0]);
+            this.n_cont.innerHTML = this.data[this.row][0];
             this.setStyle(this.data[this.row][1]);
         }
     };

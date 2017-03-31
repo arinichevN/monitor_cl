@@ -21,6 +21,23 @@ function NavigationButton(slave, img_path) {
         this.valE.innerHTML = this.slave.getName();
     };
 }
+function AudioMP3(path, volume) {
+    this.container = c('audio');
+    this.source = c('source');
+    this.container.volume = volume;
+    this.container.controls = false;
+    this.container.loop=true;
+    this.source.src = path;
+    this.source.type = "audio/mp3";
+    a(this.container, this.source);
+    this.play = function () {
+        this.container.play();
+    };
+    this.pause = function () {
+        this.container.pause();
+    };
+
+}
 function NavigationButtonOut(path, text_id, img_path) {
     //this.path = path;
     this.text_id = text_id;
@@ -49,13 +66,71 @@ function NavigationButtonI(slave, img_path) {
     this.valE = cd();
     cla(this.imgE, "nbi_img");
     cla(this.valE, "nbi_val");
-    a(this.container, [this.imgE, this.valE]);
+    if (typeof img_path !== 'undefined') {
+        a(this.container, this.imgE);
+    }
     this.container.addEventListener("click", function () {
         showV(slave);
     }, false);
     this.updateStr = function () {
         this.valE.innerHTML = this.slave.getName();
     };
+}
+function ApplyButton(slave, id) {
+    var self = this;
+    this.slave = slave;
+    this.id = id;
+    this.disabled = false;
+    this.container = cb("");
+    this.imgE = c("img");
+    this.valE = cd();
+    s(this.imgE, "src", "f_js/image/apply.png");
+    cla(this.imgE, "nbi_img");
+    cla(this.valE, "nbi_val");
+    a(this.container, [this.imgE, this.valE]);
+    this.container.addEventListener("click", function () {
+        self.slave.apply(self.id);
+    }, false);
+    this.updateStr = function () {
+        this.valE.innerHTML = trans.get(2);
+    };
+    this.enable = function () {
+        this.container.disabled = false;
+        this.disabled = false;
+    };
+    this.disable = function () {
+        this.container.disabled = true;
+        this.disabled = true;
+    };
+    this.updateStr();
+}
+function CancelButton(slave, id) {
+    var self = this;
+    this.slave = slave;
+    this.id = id;
+    this.disabled = false;
+    this.container = cb("");
+    this.imgE = c("img");
+    this.valE = cd();
+    s(this.imgE, "src", "f_js/image/cancel.png");
+    cla(this.imgE, "nbi_img");
+    cla(this.valE, "nbi_val");
+    a(this.container, [this.imgE, this.valE]);
+    this.container.addEventListener("click", function () {
+        self.slave.cancel(self.id);
+    }, false);
+    this.updateStr = function () {
+        this.valE.innerHTML = trans.get(5);
+    };
+    this.enable = function () {
+        this.container.disabled = false;
+        this.disabled = false;
+    };
+    this.disable = function () {
+        this.container.disabled = true;
+        this.disabled = true;
+    };
+    this.updateStr();
 }
 function SaveButton(slave, id) {
     var self = this;

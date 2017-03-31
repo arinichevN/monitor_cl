@@ -8,9 +8,11 @@ class ping_peer {
     }
 
     public static function execute($p) {
-       \udp\init($p['address'], $p['port']);
+       \sock\init($p['address'], $p['port'],3);
        \acp\sendPackBroadcast(ACP_CMD_APP_PING);
-        return \acp\getBufParseStateData();
+        $data= \acp\getBufParseStateData();
+        \sock\suspend();
+        return $data;
     }
 
 }

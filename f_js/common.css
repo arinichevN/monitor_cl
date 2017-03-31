@@ -53,9 +53,9 @@ button{
     left:0px;
     width: 100%;
     height: 100%;
-    background-color: gray;
-    opacity: 0.3;
-    cursor: wait;
+    background-color: black;
+    opacity: 1;
+    cursor: default;
     z-index:101;
 }
 .logger_m{
@@ -732,6 +732,9 @@ input{
     width:99%;
     height: 100%;
 }
+.w100{
+    width:99%;
+}
 .h15m{
     width:99%;
     height: 14%;
@@ -823,7 +826,10 @@ input{
     padding: 5px 0px 5px 5px;
     font-style: italic;
 }
-
+.f1 .nbi_img{
+    width: 40px;
+    height: 40px;
+}
 .nbi_img{
     width: 50px;
     height: 50px;
@@ -831,6 +837,7 @@ input{
     display: inline;
     vertical-align: sub;
 }
+
 .nbi_val{
     display: inline;
 }

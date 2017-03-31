@@ -1,20 +1,28 @@
-function PeerButton(descr) {
+function PeerButton(id,name) {
     this.container = cd();
-    this.id=descr;
+    this.id = id;
+    this.name=name;
 
     this.descrE = cd();
     this.workE = c("img");
     s(this.workE, "src", "client/image/work_un.png");
 
     this.workE.innerHTML = '&empty;';
-    this.descrE.innerHTML = descr;
-     this.tmr1 = {tmr: null};
+    this.descrE.innerHTML = this.name;
+    this.tmr1 = {tmr: null};
 
     this.updateStr = function () {
 
     };
-        this.unmark = function () {
-        clr(this.container, 'peer_updated');
+    this.blink = function (style) {
+        cla(this.container, style);
+        var self = this;
+        var tmr = window.setTimeout(function () {
+            self.unmark(style);
+        }, 300);
+    };
+    this.unmark = function (style) {
+        clr(this.container, style);
     };
     this.update = function (state) {
         switch (state) {
@@ -28,16 +36,12 @@ function PeerButton(descr) {
                 s(this.workE, "src", "client/image/work_un.png");
                 break;
         }
-        cla(this.container, 'peer_updated');
-        var self = this;
-        this.tmr1.tmr = window.setTimeout(function () {
-            self.unmark();
-        }, 300);
+        this.blink('peer_updated');
     };
-    a(this.container, [ this.descrE,this.workE]);
+    a(this.container, [this.descrE, this.workE]);
     cla(this.workE, ["peer_work"]);
     cla(this.descrE, ["peer_descr"]);
-   // cla([this.workE, this.descrE], ["pr_d"]);
+    // cla([this.workE, this.descrE], ["pr_d"]);
     cla(this.container, ["peer_block", "select_none"]);
 
 }

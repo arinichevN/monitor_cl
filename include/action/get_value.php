@@ -7,9 +7,11 @@ class get_value {
     }
 
     public static function execute($p) {
-        \udp\init($p['address'], $p['port']);
+        \sock\init($p['address'], $p['port'],3);
         \acp\sendPackI1(ACP_CMD_GET_FTS, $p['item']);
-        return \acp\getFTS();
+        $data= \acp\getFTS();
+        \sock\suspend();
+        return $data;
     }
 
 }
