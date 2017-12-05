@@ -2,43 +2,32 @@ function Monitor() {
     this.type = VISU_TYPE.MAIN;
     this.container = {};
     this.data = [
-        {name: 'температура', peer_id: 'gwu22_2', remote_id: 9, mu: "&deg;C", group_id: 1},
-        {name: 'температура', peer_id: 'gwu22_2', remote_id: 7, mu: "&deg;C", group_id: 2},
-        {name: 'температура', peer_id: 'gwu22_2', remote_id: 1, mu: "&deg;C", group_id: 3},
-        {name: 'температура', peer_id: 'gwu22_2', remote_id: 3, mu: "&deg;C", group_id: 4},
-        {name: 'температура', peer_id: 'gwu22_2', remote_id: 5, mu: "&deg;C", group_id: 5},
-        {name: 'температура', peer_id: 'gwu22_2', remote_id: 11, mu: "&deg;C", group_id: 6},
-        {name: 'влажность', peer_id: 'gwu22_2', remote_id: 10, mu: "%", group_id: 1},
-        {name: 'влажность', peer_id: 'gwu22_2', remote_id: 8, mu: "%", group_id: 2},
-        {name: 'влажность', peer_id: 'gwu22_2', remote_id: 2, mu: "%", group_id: 3},
-        {name: 'влажность', peer_id: 'gwu22_2', remote_id: 4, mu: "%", group_id: 4},
-        {name: 'влажность', peer_id: 'gwu22_2', remote_id: 6, mu: "%", group_id: 5},
-        {name: 'влажность', peer_id: 'gwu22_2', remote_id: 12, mu: "%", group_id: 6},
-        {name: '1', peer_id: 'gwu18_1', remote_id: 1, mu: "&deg;C", group_id: 8},
-        {name: '2', peer_id: 'gwu18_1', remote_id: 2, mu: "&deg;C", group_id: 9},
-        {name: '3', peer_id: 'gwu18_1', remote_id: 3, mu: "&deg;C", group_id: 10},
-        {name: '4', peer_id: 'gwu18_1', remote_id: 4, mu: "&deg;C", group_id: 11},
-        {name: '5', peer_id: 'gwu18_1', remote_id: 5, mu: "&deg;C", group_id: 12},
-        {name: '6', peer_id: 'gwu18_1', remote_id: 6, mu: "&deg;C", group_id: 13}
+        {name: '1', peer_id: 'gwu22_2', remote_id: 1, mu: "&deg;C", group_id: 1},
+   //     {name: '2', peer_id: 'gwu22_2', remote_id: 2, mu: "&deg;C", group_id: 2},
+ //{name: '2', peer_id: 'gwu22_2', remote_id: 3, mu: "&deg;C", group_id: 2},
+//{name: '2', peer_id: 'gwu22_2', remote_id: 4, mu: "&deg;C", group_id: 2},
+//{name: '2', peer_id: 'gwu22_2', remote_id: 5, mu: "&deg;C", group_id: 2},
+//{name: '2', peer_id: 'gwu22_2', remote_id: 6, mu: "&deg;C", group_id: 2},
     ];
     this.peer = [
-        {id: 'gwu18_1', address: '192.168.0.101', port: 49161, timeout: 2, name: "модуль1"},
-        {id: 'gwu22_2', address: '192.168.0.102', port: 49162, timeout: 2, name: "модуль2"}
+       // {id: 'gwu55_1', address: '192.168.0.102', port: 49166, timeout: 2, name: "модуль1 (max31855)"},
+         //{id: 'gwu66_1', address: '192.168.0.110', port: 49162, timeout: 2, name: "модуль1 (max6675)"},
+        {id: 'gwu22_2', address: '127.0.0.1', port: 49162, timeout: 2, name: "модуль2"}
     ];
     this.group = [
-        {id: 1, name: 'старт 1'},
-        {id: 2, name: 'старт 2'},
-        {id: 3, name: 'столп 1'},
-        {id: 4, name: 'столп 2'},
-        {id: 5, name: 'разведение'},
-        {id: 6, name: 'холодильник'},
-                // {id: 7, name: 'морозильники_температура'},
-        {id: 8, name: 'ларь 1'},
-        {id: 9, name: 'ларь 2'},
-        {id: 10, name: 'ларь 3'},
-        {id: 11, name: 'ларь 4'},
-        {id: 12, name: 'ларь 5'},
-        {id: 13, name: 'ларь 6'}
+        {id: 1, name: 'датчик 1'},
+        {id: 2, name: 'датчик 2'},
+//        {id: 3, name: 'столп 1'},
+//        {id: 4, name: 'столп 2'},
+//        {id: 5, name: 'разведение'},
+//        {id: 6, name: 'холодильник'},
+//        // {id: 7, name: 'морозильники_температура'},
+//        {id: 8, name: 'ларь 1'},
+//        {id: 9, name: 'ларь 2'},
+//        {id: 10, name: 'ларь 3'},
+//        {id: 11, name: 'ларь 4'},
+//        {id: 12, name: 'ларь 5'},
+//        {id: 13, name: 'ларь 6'}
     ];
     this.sendData = [];//prepared for send data from this.data and this.peer
     this.tmr1 = {tmr: null};
@@ -56,13 +45,13 @@ function Monitor() {
     this.curr_ppeer = null;
     this.curr_item = null;
     this.DELAY_P = 3000;
-    this.DELAY_V = 5000;
+    this.DELAY_V = 2000;
     this.DELAY_PL = 10000;
     this.DELAY_VL = 50000;
     this.delay_p = this.DELAY_P;//send ping interval
     this.delay_v = this.DELAY_V;//send value interval
     this.DELAY_FACTOR = 2000000;
-    this.delay_s = 60000;//sleep timeout
+    this.delay_s = 300000;//sleep timeout
 
     this.sleep = false;
     this.initialized = false;
@@ -145,7 +134,6 @@ function Monitor() {
         ];
         sendTo(this, data, this.ACTION.GET_VALUE, 'json_udp_acp');
     };
-
     this.updateCurrMainB = function (v, s) {
         try {
             this.curr_item.elem.update(v, s);

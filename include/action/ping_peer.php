@@ -1,6 +1,5 @@
 <?php
 
-
 class ping_peer {
 
     public static function getUser() {
@@ -8,9 +7,9 @@ class ping_peer {
     }
 
     public static function execute($p) {
-       \sock\init($p['address'], $p['port'],3);
-       \acp\sendPackBroadcast(ACP_CMD_APP_PING);
-        $data= \acp\getBufParseStateData();
+        \sock\init($p['address'], $p['port'], 3);
+        $id = \acp\requestSendCmd(ACP_CMD_APP_PING);
+        $data = \acp\getBufParseStateData($id);
         \sock\suspend();
         return $data;
     }
