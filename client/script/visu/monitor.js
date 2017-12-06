@@ -2,7 +2,19 @@ function Monitor() {
     this.type = VISU_TYPE.MAIN;
     this.container = {};
     this.data = [
-        {name: '1', peer_id: 'gwu22_2', remote_id: 1, mu: "&deg;C", group_id: 1},
+        {name: '1', peer_id: 'gwu18', remote_id: 1, mu: "&deg;C", group_id: 1},
+        {name: '1', peer_id: 'gwu18', remote_id: 2, mu: "&deg;C", group_id: 1},
+        {name: '1', peer_id: 'gwu18', remote_id: 3, mu: "&deg;C", group_id: 1},
+        {name: '1', peer_id: 'gwu18', remote_id: 4, mu: "&deg;C", group_id: 1},
+        {name: '1', peer_id: 'gwu18', remote_id: 5, mu: "&deg;C", group_id: 1},
+        {name: '1', peer_id: 'gwu22', remote_id: 1, mu: "&deg;C", group_id: 2},
+        {name: '1', peer_id: 'gwu22', remote_id: 2, mu: "&deg;C", group_id: 2},
+        {name: '1', peer_id: 'gwu22', remote_id: 3, mu: "&deg;C", group_id: 2},
+        {name: '1', peer_id: 'gwu22', remote_id: 4, mu: "&deg;C", group_id: 2},
+        {name: '1', peer_id: 'gwu22', remote_id: 5, mu: "&deg;C", group_id: 2},
+        {name: '1', peer_id: 'gwu22', remote_id: 6, mu: "&deg;C", group_id: 2},
+        {name: '3', peer_id: 'gwu66', remote_id: 1, mu: "&deg;C", group_id: 3},
+        {name: '3', peer_id: 'gwu66', remote_id: 2, mu: "&deg;C", group_id: 3},
    //     {name: '2', peer_id: 'gwu22_2', remote_id: 2, mu: "&deg;C", group_id: 2},
  //{name: '2', peer_id: 'gwu22_2', remote_id: 3, mu: "&deg;C", group_id: 2},
 //{name: '2', peer_id: 'gwu22_2', remote_id: 4, mu: "&deg;C", group_id: 2},
@@ -12,12 +24,14 @@ function Monitor() {
     this.peer = [
        // {id: 'gwu55_1', address: '192.168.0.102', port: 49166, timeout: 2, name: "модуль1 (max31855)"},
          //{id: 'gwu66_1', address: '192.168.0.110', port: 49162, timeout: 2, name: "модуль1 (max6675)"},
-        {id: 'gwu22_2', address: '127.0.0.1', port: 49162, timeout: 2, name: "модуль2"}
+         {id: 'gwu18', address: '127.0.0.1', port: 49161, timeout: 2, name: "gwu18"},
+        {id: 'gwu22', address: '127.0.0.1', port: 49162, timeout: 2, name: "gwu22"},
+        {id: 'gwu66', address: '127.0.0.1', port: 49166, timeout: 2, name: "gwu66"}
     ];
     this.group = [
-        {id: 1, name: 'датчик 1'},
-        {id: 2, name: 'датчик 2'},
-//        {id: 3, name: 'столп 1'},
+        {id: 1, name: 'gwu18'},
+        {id: 2, name: 'gwu22'},
+        {id: 3, name: 'gwu66'},
 //        {id: 4, name: 'столп 2'},
 //        {id: 5, name: 'разведение'},
 //        {id: 6, name: 'холодильник'},
@@ -50,8 +64,8 @@ function Monitor() {
     this.DELAY_VL = 50000;
     this.delay_p = this.DELAY_P;//send ping interval
     this.delay_v = this.DELAY_V;//send value interval
-    this.DELAY_FACTOR = 2000000;
-    this.delay_s = 300000;//sleep timeout
+    this.DELAY_FACTOR = 20000;
+    this.delay_s = 60000;//sleep timeout
 
     this.sleep = false;
     this.initialized = false;
@@ -187,7 +201,7 @@ function Monitor() {
                 this.tmr3.tmr = window.setTimeout(function () {
                     self.sleep = true;
                     self.delay_v = self.DELAY_V * self.DELAY_FACTOR;
-                    self.delay_p = self.DELAY_P * self.DELAY_FACTOR;
+                    self.delay_p = self.DELAY_P * self.DELAY_FACTOR;console.log(self.delay_v);
                     page_blocker.enable();
                 }, this.delay_s);
             }
@@ -407,7 +421,7 @@ function Monitor() {
         try {
             switch (action) {
                 case this.ACTION.GET_VALUE:
-                    // this.curr_peer.active = false;
+                     this.curr_peer.active = false;
                     this.updateCurrMainB(null);
                     this.sendNextItem();
                     break;
