@@ -15,6 +15,10 @@ function Monitor() {
         {name: '1', peer_id: 'gwu22', remote_id: 6, mu: "&deg;C", group_id: 2},
         {name: '3', peer_id: 'gwu66', remote_id: 1, mu: "&deg;C", group_id: 3},
         {name: '3', peer_id: 'gwu66', remote_id: 2, mu: "&deg;C", group_id: 3},
+        {name: '4', peer_id: 'obj', remote_id: 1, mu: "&deg;C", group_id: 4},
+{name: '4', peer_id: 'obj', remote_id: 2, mu: "&deg;C", group_id: 4},
+{name: '4', peer_id: 'obj', remote_id: 3, mu: "&deg;C", group_id: 4},
+{name: '4', peer_id: 'obj', remote_id: 4, mu: "&deg;C", group_id: 4},
    //     {name: '2', peer_id: 'gwu22_2', remote_id: 2, mu: "&deg;C", group_id: 2},
  //{name: '2', peer_id: 'gwu22_2', remote_id: 3, mu: "&deg;C", group_id: 2},
 //{name: '2', peer_id: 'gwu22_2', remote_id: 4, mu: "&deg;C", group_id: 2},
@@ -24,14 +28,16 @@ function Monitor() {
     this.peer = [
        // {id: 'gwu55_1', address: '192.168.0.102', port: 49166, timeout: 2, name: "модуль1 (max31855)"},
          //{id: 'gwu66_1', address: '192.168.0.110', port: 49162, timeout: 2, name: "модуль1 (max6675)"},
-         {id: 'gwu18', address: '127.0.0.1', port: 49161, timeout: 2, name: "gwu18"},
+         {id: 'gwu18', address: '127.0.0.1', port: 49162, timeout: 2, name: "gwu18"},
         {id: 'gwu22', address: '127.0.0.1', port: 49162, timeout: 2, name: "gwu22"},
-        {id: 'gwu66', address: '127.0.0.1', port: 49166, timeout: 2, name: "gwu66"}
+        {id: 'gwu66', address: '127.0.0.1', port: 49166, timeout: 2, name: "gwu66"},
+        {id: 'obj', address: '127.0.0.1', port: 49178, timeout: 2, name: "obj"}
     ];
     this.group = [
         {id: 1, name: 'gwu18'},
         {id: 2, name: 'gwu22'},
         {id: 3, name: 'gwu66'},
+        {id: 4, name: 'obj'},
 //        {id: 4, name: 'столп 2'},
 //        {id: 5, name: 'разведение'},
 //        {id: 6, name: 'холодильник'},
@@ -303,7 +309,7 @@ function Monitor() {
         try {
             clearCont(this.peerE);
             for (var i = 0; i < this.peer.length; i++) {
-                var elem = new PeerButton(this.peer[i].id, this.peer[i].name);
+                var elem = new PeerButton(this.peer[i]);
                 this.peer[i].elem = elem;
                 a(this.peerE, elem);
             }

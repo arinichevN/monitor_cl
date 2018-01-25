@@ -1,7 +1,7 @@
-function PeerButton(id,name) {
+function PeerButton(peer) {
     this.container = cd();
-    this.id = id;
-    this.name=name;
+    this.id = peer.id;
+    this.name=peer.name;
 
     this.descrE = cd();
     this.workE = c("img");
@@ -9,6 +9,7 @@ function PeerButton(id,name) {
 
     this.workE.innerHTML = '&empty;';
     this.descrE.innerHTML = this.name;
+    this.container.title=peer.address+":"+peer.port;
     this.tmr1 = {tmr: null};
 
     this.updateStr = function () {
