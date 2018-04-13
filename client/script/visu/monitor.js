@@ -19,6 +19,14 @@ function Monitor() {
 {name: '4', peer_id: 'obj', remote_id: 2, mu: "&deg;C", group_id: 4},
 {name: '4', peer_id: 'obj', remote_id: 3, mu: "&deg;C", group_id: 4},
 {name: '4', peer_id: 'obj', remote_id: 4, mu: "&deg;C", group_id: 4},
+        {name: '5', peer_id: 'swf', remote_id: 1, mu: "&deg;C", group_id: 5},
+{name: '5', peer_id: 'swf', remote_id: 2, mu: "&deg;C", group_id: 5},
+{name: '5', peer_id: 'swf', remote_id: 3, mu: "&deg;C", group_id: 5},
+{name: '5', peer_id: 'swf', remote_id: 4, mu: "&deg;C", group_id: 5},
+
+{name: '6', peer_id: 'swr', remote_id: 1, mu: "&deg;C", group_id: 6},
+{name: '6', peer_id: 'swr', remote_id: 2, mu: "&deg;C", group_id: 6},
+
    //     {name: '2', peer_id: 'gwu22_2', remote_id: 2, mu: "&deg;C", group_id: 2},
  //{name: '2', peer_id: 'gwu22_2', remote_id: 3, mu: "&deg;C", group_id: 2},
 //{name: '2', peer_id: 'gwu22_2', remote_id: 4, mu: "&deg;C", group_id: 2},
@@ -31,13 +39,17 @@ function Monitor() {
          {id: 'gwu18', address: '127.0.0.1', port: 49162, timeout: 2, name: "gwu18"},
         {id: 'gwu22', address: '127.0.0.1', port: 49162, timeout: 2, name: "gwu22"},
         {id: 'gwu66', address: '127.0.0.1', port: 49166, timeout: 2, name: "gwu66"},
-        {id: 'obj', address: '127.0.0.1', port: 49178, timeout: 2, name: "obj"}
+        {id: 'obj', address: '127.0.0.1', port: 49178, timeout: 2, name: "obj"},
+        {id: 'swr', address: '127.0.0.1', port: 49183, timeout: 2, name: "swr"},
+ {id: 'swf', address: '127.0.0.1', port: 49182, timeout: 2, name: "swf"}
     ];
     this.group = [
         {id: 1, name: 'gwu18'},
         {id: 2, name: 'gwu22'},
         {id: 3, name: 'gwu66'},
         {id: 4, name: 'obj'},
+   {id: 5, name: 'swf'},
+   {id: 6, name: 'swr'},
 //        {id: 4, name: 'столп 2'},
 //        {id: 5, name: 'разведение'},
 //        {id: 6, name: 'холодильник'},
