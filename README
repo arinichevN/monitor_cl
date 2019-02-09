@@ -6,9 +6,7 @@
 Предварительно должен быть настроен веб-сервер с возможностью выполнения php скриптов.
 В одной папке с проектом должна быть помещена библиотека f_php (https://github.com/arinichevN/f_php)
 1.2 Настройки:
-- в файле ./client/script/visu/monitor.js нужно отредактировать массивы this.peer, this.data, this.group
-- файл ./config/main.php используется для настройки библиотеки f_php (загрузка нужных модулей, 
-  предварительные настройки модулей)
+- в файле ./client/script/visu/monitor.js нужно отредактировать массивы this.peer, this.data, this.group;
 
 
 
